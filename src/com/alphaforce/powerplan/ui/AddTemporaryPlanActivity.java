@@ -3,7 +3,7 @@ package com.alphaforce.powerplan.ui;
 
 import java.util.Calendar;
 
-import com.example.testdemo.R;
+import com.alphaforce.powerplan.R;
 
 import android.os.Bundle;
 import android.app.Activity;

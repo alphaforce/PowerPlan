@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.testdemo.R;
+import com.alphaforce.powerplan.R;
 
 import android.os.Bundle;
 import android.app.Activity;
