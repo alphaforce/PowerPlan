@@ -1,16 +1,16 @@
 package com.alphaforce.powerplan.model;
 
 public class Location {
-	private int mId;
+	private long mId;
 	private String mAddress;
 	private Double mLongitude;
 	private Double mLatitude;
 
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		mId = id;
 	}
 

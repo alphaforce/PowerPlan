@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Plan {
-	private int mId;
+	private long mId;
 	private String mName;
 	private String mContent;
 	private Date mStartTime;
@@ -16,10 +16,10 @@ public class Plan {
 	private Double mLatitude;
 	private List<Integer> mStatus;
 	
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		mId = id;
 	}
 	public String getName() {
