@@ -7,8 +7,8 @@ public class Plan {
 	private long mId;
 	private String mName;
 	private String mContent;
-	private Date mStartTime;
-	private Date mEndTime;
+	private long mStartTime;
+	private long mEndTime;
 	private long mLocactionId;
 	private String mAuthor;
 	private String mAddress;
@@ -34,16 +34,16 @@ public class Plan {
 	public void setContent(String content) {
 		mContent = content;
 	}
-	public Date getStartTime() {
+	public long getStartTime() {
 		return mStartTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(long startTime) {
 		mStartTime = startTime;
 	}
-	public Date getEndTime() {
+	public long getEndTime() {
 		return mEndTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(long endTime) {
 		mEndTime = endTime;
 	}
 	public long getLocactionId() {
