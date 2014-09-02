@@ -9,7 +9,7 @@ public class Plan {
 	private String mContent;
 	private Date mStartTime;
 	private Date mEndTime;
-	private int mLocactionId;
+	private long mLocactionId;
 	private String mAuthor;
 	private String mAddress;
 	private Double mLongitude;
@@ -46,10 +46,10 @@ public class Plan {
 	public void setEndTime(Date endTime) {
 		mEndTime = endTime;
 	}
-	public int getLocactionId() {
+	public long getLocactionId() {
 		return mLocactionId;
 	}
-	public void setLocactionId(int locactionId) {
+	public void setLocactionId(long locactionId) {
 		mLocactionId = locactionId;
 	}
 	public String getAuthor() {
