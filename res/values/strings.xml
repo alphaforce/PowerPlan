@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">强效计划</string>
+    <string name="action_settings">Settings</string>
+    <string name="setting">设定</string>
+    <string name="add_plan">添加计划</string>
+    <string name="add_daily_plan">添加日常计划</string>
+    <string name="add_temp_plan">添加临时计划</string>
+    <string name="simple_plan">简易显示</string>
+    <string name="complete_plan">完全显示</string>
+    <string name="plan_name">计划　　</string>
+    <string name="plan_place">地点　　</string>
+    <string name="plan_begin_time">开始时间</string>
+    <string name="plan_end_time">结束时间</string>
+    <string name="plan_content">内容</string>
+    <string name="plan_model">模式　　</string>
+    <string name="add_plan_name">计划名称</string>
+    <string name="input_plan_name">请输入计划名称</string>
+    <string name="input_plan_content">请输入计划内容</string>
+    <string name="input_plan_address">请输入地址</string>
+    <string name="input_begin_time">开始</string>
+    <string name="input_end_time">结束</string>
+    <string name="input_select_begin">开始时间</string>
+    <string name="input_select_end">结束时间</string>
+    <string name="map_display">地图显示</string>
+    <string name="input_save_plan">保存</string>
+    <string name="input_cancel_plan">取消</string>
+    <string name="setting_model">屏蔽选项</string>
+    <string name="setting_apply_plan">应用</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="display_plan">计划详情</string>
+    <string name="model_options">屏蔽选项</string>
+    <string name="select_model_options">点击选择屏蔽选项</string>
+    <string name="model_security_tele">安全号码</string>
+    <string name="model_first_pwd">请输入计划密码</string>
+    <string name="model_second_pwd">请再次输入密码</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="return_main_page">返回主页面</string>
+    <string name="version_number">版本号</string>
+    
+    <string name="first_time">上午时间安排</string>
+    <string name="second_time">下午时间安排</string>
+    <string name="popup_daily">日常计划</string>
+    <string name="popup_temporary">临时计划</string>
+    <string name="popup_close">　关闭　</string>
+    <string name="title_activity_add_temporory">AddTempororyActivity</string>
+
+</resources>

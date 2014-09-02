@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.testdemo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.alphaforce.powerplan.ui.StartActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.alphaforce.powerplan.ui.AddDailyPlanActivity" >
+        </activity>
+        <activity
+            android:name="com.alphaforce.powerplan.ui.SettingActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name="com.alphaforce.powerplan.ui.DisplayPlanActivity"
+            android:label="@string/title_activity_display_plan" >
+        </activity>
+        <activity
+            android:name="com.alphaforce.powerplan.ui.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.alphaforce.powerplan.ui.AddTemporaryPlanActivity"
+            android:label="@string/title_activity_add_temporory" >
+        </activity>
+    </application>
+
+</manifest>

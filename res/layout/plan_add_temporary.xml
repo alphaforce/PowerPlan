@@ -1,0 +1,237 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".StartActivity" >
+    
+   <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	    <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal">
+		    <TextView
+			    android:id="@+id/mainSetting"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginBottom="10dp"
+			    android:text="@string/add_temp_plan"
+			    android:textSize="20sp" />
+		    <LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:gravity="right"
+			    android:orientation="horizontal">
+
+			    <Button
+			        android:id="@+id/input_cancel"
+			        android:layout_width="wrap_content"
+			        android:layout_height="40dp"
+			        android:layout_gravity="center"
+			        android:layout_marginRight="5dp"
+			        android:background="@drawable/button_onoff_indicator_off"
+			        android:paddingLeft="5dp"
+			        android:paddingRight="5dp"
+			        android:text="@string/input_cancel_plan" />
+
+			    <Button
+		            android:id="@+id/input_save"
+		            android:layout_width="wrap_content"
+		            android:layout_height="40dp"
+		            android:background="@drawable/button_onoff_indicator_off"
+		            android:layout_gravity="center"
+		            android:text="@string/input_save_plan" />
+			</LinearLayout>
+		</LinearLayout>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="2dp"
+	        android:layout_marginBottom="5dp"
+	        android:background="@color/red"
+	        />
+	    
+    </LinearLayout>
+    <ScrollView
+	    android:layout_width="match_parent"
+		android:layout_height="match_parent">
+	    
+	    
+	    <LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical">
+	
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="10dp"
+		        android:orientation="vertical">
+		   		<LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content">
+			
+			        <EditText
+			            android:id="@+id/addPlanName"
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:background="@drawable/edit_shape"
+			            android:gravity="center"
+			            android:hint="@string/input_plan_name"
+			            android:textSize="22sp" />
+			    </LinearLayout>
+			
+			    <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+			        android:layout_marginTop="10dp"
+			        android:layout_marginBottom="10dp" >
+			
+			        <EditText
+			            android:id="@+id/planName"
+			            android:layout_width="match_parent"
+			            android:layout_height="93dp"
+			            android:layout_gravity="center"
+			            android:gravity="center"
+			            android:hint="@string/input_plan_content"
+			            android:background="@drawable/edit_shape"
+			            android:textSize="20sp" />
+			    </LinearLayout>
+			
+			    <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="10dp"
+			        android:layout_marginBottom="10dp"
+			        android:orientation="horizontal" >
+			
+			        <LinearLayout
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center_vertical" >
+			
+			            <TextView
+			                android:id="@+id/input_begin_time_text"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:layout_gravity="center_vertical"
+			                android:gravity="center"
+			                android:text="@string/input_begin_time"
+			                android:textSize="20sp" />
+			        </LinearLayout>
+			
+			        <LinearLayout
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp" >
+			
+			            <EditText
+			                android:id="@+id/input_begin_time_edit"
+			                android:layout_width="match_parent"
+			                android:layout_height="35dp"
+			                android:layout_gravity="center"
+			                android:background="@drawable/edit_shape"
+			                android:gravity="center"
+			                android:hint="@string/input_select_begin" />
+			
+			        </LinearLayout>
+			    </LinearLayout>
+			
+			    <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginBottom="10dp"
+			        android:layout_marginTop="10dp"
+			        android:orientation="horizontal" >
+			
+			        <LinearLayout
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center_vertical" >
+			
+			            <TextView
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:layout_gravity="center"
+			                android:gravity="center"
+			                android:text="@string/input_end_time"
+			                android:textSize="20sp" />
+			        </LinearLayout>
+			
+			        <LinearLayout
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp" >
+			
+			            <EditText
+			                android:id="@+id/input_end_time_edit"
+			                android:layout_width="match_parent"
+			                android:layout_height="35dp"
+			                android:hint="@string/input_select_end"
+			                android:layout_gravity="center"
+			                android:background="@drawable/edit_shape"
+			                android:gravity="center" />
+			        </LinearLayout>
+			    </LinearLayout>
+			    
+				<!-- <LinearLayout
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"
+			    	android:orientation="horizontal">
+	
+			    	<Spinner
+			    	    android:id="@+id/spinner1"
+			    	    android:layout_width="0dp"
+			    	    android:layout_height="40dp"
+				    	android:gravity="center"
+				    	android:layout_gravity="center" 
+			    	    android:layout_weight="3"
+			    	    android:layout_marginRight="10dp"
+			    	    android:background="@drawable/edit_shape"		    	    
+			    	    android:entries="@array/models" />
+			    	
+			    	<Button 
+			    	    android:layout_width="0dp"
+			    		android:layout_height="wrap_content"
+			    		android:layout_weight="1"
+			    		android:text="设置"
+			    		/>
+			    </LinearLayout> -->
+			    <EditText
+		            android:id="@+id/input_plan_address"
+		            android:layout_width="match_parent"
+		            android:layout_height="35dp"
+		            android:layout_marginBottom="10dp"
+		        	android:layout_marginTop="10dp"
+		            android:layout_gravity="center"
+		            android:background="@drawable/edit_shape"
+		            android:gravity="center"
+		            android:hint="@string/input_plan_address"
+		            android:textSize="20sp" />
+			
+			    
+			    <Button
+		            android:id="@+id/mapDisplay"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginBottom="10dp"
+		        	android:layout_marginTop="10dp"
+		            android:background="@drawable/button_onoff_indicator_off"
+		            android:paddingLeft="5dp"
+		            android:paddingRight="5dp"
+		            android:layout_gravity="center"
+		            android:text="@string/map_display" />
+		    </LinearLayout>
+	    </LinearLayout>
+	</ScrollView>
+</LinearLayout>

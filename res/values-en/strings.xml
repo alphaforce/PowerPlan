@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Compulsory Plan</string>
+    <string name="action_settings">Settings</string>
+    <string name="setting">seting</string>
+    <string name="add_plan">Add Plan</string>
+    <string name="simple_plan">Simple Display</string>
+    <string name="complete_plan">Complete Display</string>
+    
+    <string name="plan_name">Plan</string>
+    <string name="plan_place">Place</string>
+    <string name="plan_begin_time">Being time</string>
+    <string name="plan_end_time">End time</string>
+    <string name="plan_content">Content</string>
+    <string name="plan_model">Model</string>
+    
+    <string name="add_plan_name">Plan Name</string>    
+    <string name="input_plan_name">Please input the plan name</string>
+    <string name="input_plan_content">Please input the plan content</string>
+    <string name="input_plan_address">Please input the plan address</string>
+    <string name="input_begin_time">Begin time</string>
+    <string name="input_end_time">End time</string>
+    <string name="input_select_begin">Select begin time</string>
+    <string name="input_select_end">Select end time</string>
+    <string name="map_display">Map Display</string>
+    <string name="input_save_plan">Save</string>
+    <string name="input_cancel_plan">Cancel</string>
+    <string name="setting_model">Model options</string>
+    <string name="setting_apply_plan">Apply</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_display_plan">Plan details</string>
+    
+    <string name="display_plan">Plan details</string>
+    <string name="model_options">Shielding options</string>
+    <string name="select_model_options">Select model option</string>
+    <string name="model_security_tele">Security number</string>
+    <string name="model_first_pwd">Please input password</string>
+    <string name="model_second_pwd">Please input password again</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="return_main_page">return main page</string>
+
+</resources>

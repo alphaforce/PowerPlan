@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"  
+	android:layout_height="match_parent"
+	android:background="@color/white" >
+	<LinearLayout  
+	    android:layout_width="match_parent"  
+	    android:layout_height="wrap_content" 
+	    android:orientation="vertical"
+	    android:padding="10dip" >  
+	    <LinearLayout
+		    android:layout_width="match_parent"  
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"> 
+		    <TextView  
+		        android:layout_width="match_parent"  
+		        android:layout_height="wrap_content"  
+		        android:singleLine="true"  
+		        android:text="@string/input_begin_time"
+		        android:textColor="@color/black"  
+		        android:textSize="16sp" />  
+		  
+		    <DatePicker  
+		        android:id="@+id/date_picker"  
+		        android:layout_width="wrap_content"  
+		        android:layout_height="wrap_content"  
+		        android:layout_marginTop="5dip" />
+		</LinearLayout>  
+		
+		<LinearLayout
+		    android:layout_width="match_parent"  
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"> 
+		    <TextView  
+		        android:layout_width="match_parent"  
+		        android:layout_height="wrap_content"
+		        android:textColor="@color/black"  
+		        android:layout_marginTop="10dip"  
+		        android:singleLine="true"  
+		        android:text="@string/input_end_time"
+		        android:textSize="16sp" />  
+		  
+		    <TimePicker  
+		        android:id="@+id/time_picker"  
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"  
+		        android:layout_marginTop="5dip" />
+	  
+	    </LinearLayout>
+	 
+	</LinearLayout>  
+</ScrollView>
