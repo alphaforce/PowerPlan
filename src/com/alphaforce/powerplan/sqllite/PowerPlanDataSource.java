@@ -17,7 +17,7 @@ public class PowerPlanDataSource {
 
 	private PowerPlanDataSource(Context context) {
 		mContext = context;
-		mDBHelper = new PowerPlanDatabaseHelper(context);
+		mDBHelper = new PowerPlanDatabaseHelper(mContext);
 	}
 
 	public PowerPlanDataSource get(Context context) {

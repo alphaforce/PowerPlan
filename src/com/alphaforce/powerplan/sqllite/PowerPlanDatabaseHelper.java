@@ -1,7 +1,6 @@
 package com.alphaforce.powerplan.sqllite;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.alphaforce.powerplan.model.Location;
@@ -246,7 +245,7 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	public List<Integer> queryStatusByPlanId(long id){
 		Cursor cursor = getReadableDatabase().query(STATUS_TABLE_NAME, new String[]{STATUS_STATUS},
 				STATUS_PLAN_ID, new String[]{String.valueOf(id)}, null, null, null);
-		List<Integer> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<Integer>();
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			list.add(cursor.getInt(cursor.getColumnIndex(STATUS_STATUS)));
