@@ -58,7 +58,7 @@ public class PowerPlanDataSource {
 	 * @param id
 	 * @return
 	 */
-	public Plan queryPlanbyId(int id) {
+	public Plan queryPlanbyId(long id) {
 		Plan plan = null;
 		PlanCursor cursor = mDBHelper.queryPlanById(id);
 		cursor.moveToFirst();
