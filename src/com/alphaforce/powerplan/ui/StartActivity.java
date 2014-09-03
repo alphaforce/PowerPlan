@@ -6,25 +6,33 @@ import java.util.List;
 import java.util.Map;
 
 import com.alphaforce.powerplan.R;
+import com.alphaforce.powerplan.model.Plan;
+import com.alphaforce.powerplan.sqllite.PowerPlanDataSource;
+import com.alphaforce.powerplan.sqllite.PowerPlanDatabaseHelper.PlanCursor;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.widget.CursorAdapter;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
+import android.widget.SimpleCursorAdapter;
 
 public class StartActivity extends Activity {
 	
@@ -59,6 +67,7 @@ public class StartActivity extends Activity {
 		Button btnAdd = (Button) findViewById(R.id.plan_add);//添加计划
 		btnAdd.setOnClickListener(new View.OnClickListener() {
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				View root = getLayoutInflater().inflate(R.layout.popup_addplan,null);
@@ -210,7 +219,36 @@ public class StartActivity extends Activity {
 		listview.setAdapter(adapter);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void addListViewItem() {
+//		Plan plan = new Plan();
+//		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
+//		PlanCursor planCursor = planItem.queryAllPlans();
+//		
+//		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
+//		while(planCursor.moveToFirst())
+//		{
+//			plan = planCursor.getPlan();
+//			Map<String, Object> listItem = new HashMap<String, Object>();
+//			listItem.put("names", plan.getName());
+//			listItem.put("places", plan.getAddress());
+//			listItem.put("authers", plan.getAuthor());
+//			listItem.put("beginTimes", plan.getStartTime());
+//			listItem.put("endTimes", plan.getEndTime());
+//			listItem.put("contents", plan.getContent());
+//			lists.add(listItem);
+//		}
+//				
+//		adapter = new SimpleCursorAdapter(
+//				StartActivity.this, 
+//				R.layout.plan_item_entirely, 
+//				planCursor, 
+//				new String[]{"names","places","authers",
+//						"beginTimes","endTimes","contents"}, 
+//				new int[]{R.id.item_name, R.id.item_place, R.id.item_model,
+//						R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
+//		
+		
 		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
 		for(int i=0; i<planNames.length; ++i)
 		{
@@ -227,8 +265,8 @@ public class StartActivity extends Activity {
 				R.layout.plan_item_entirely, 
 				new String[] {"names","places","times1","times2",
 					"contents","models"},
-				new int[] {R.id.plan, R.id.place, R.id.begin_time,
-					R.id.end_time,R.id.content, R.id.model}); 
+				new int[]{R.id.item_name, R.id.item_place, R.id.item_model,
+					R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
 		listview = (ListView) this.findViewById(R.id.mylist);
 		listview.setAdapter(adapter);
 	}
