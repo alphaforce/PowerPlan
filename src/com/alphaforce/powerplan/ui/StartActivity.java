@@ -13,7 +13,9 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Gravity;
+import android.content.res.Configuration;
+import android.graphics.drawable.BitmapDrawable;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +36,7 @@ public class StartActivity extends Activity {
 	private String[] planContents = {"内容1","内容2"};
 	private ListView listview;
 	private SimpleAdapter adapter;
+	private PopupWindow popWinsowPlan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,21 +57,36 @@ public class StartActivity extends Activity {
 		btnSetListener(mainSetting);
 				
 		Button btnAdd = (Button) findViewById(R.id.plan_add);//添加计划
-		btnAdd.setOnClickListener(new View.OnClickListener() {	
+		btnAdd.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
-				View root = getLayoutInflater().inflate(R.layout.popup_addplan,null);		  
-				final PopupWindow popup = new PopupWindow(root,1000,300,true);
-				popup.showAtLocation(root, Gravity.BOTTOM, 54,117);
-				//关闭
-				root.findViewById(R.id.close).setOnClickListener(
-						new View.OnClickListener() {	
-					@Override
-					public void onClick(View v) {
-						popup.dismiss();
-					}
-				});
-				//日常计划
+				View root = getLayoutInflater().inflate(R.layout.popup_addplan,null);
+				
+				DisplayMetrics metric = new DisplayMetrics();
+		        getWindowManager().getDefaultDisplay().getMetrics(metric);
+		        int width = metric.widthPixels;
+		        int height = metric.heightPixels;
+		        
+		        if(StartActivity.this.getResources().getConfiguration().orientation
+		        		== Configuration.ORIENTATION_PORTRAIT)
+		        {
+		        	popWinsowPlan = new PopupWindow(root,width*3/10,height/6,true);
+		            popWinsowPlan.setBackgroundDrawable(new BitmapDrawable());
+			        popWinsowPlan.setOutsideTouchable(true);
+			        popWinsowPlan.setFocusable(true);
+			        popWinsowPlan.showAsDropDown(root,width/20,height*3/4);
+		        }
+		        if(StartActivity.this.getResources().getConfiguration().orientation
+		        		== Configuration.ORIENTATION_LANDSCAPE)
+		        {
+		        	popWinsowPlan = new PopupWindow(root,height*3/10,width/6,true);
+		            popWinsowPlan.setBackgroundDrawable(new BitmapDrawable());
+			        popWinsowPlan.setOutsideTouchable(true);
+			        popWinsowPlan.setFocusable(true);
+			        popWinsowPlan.showAsDropDown(root,height/5,width*3/10);
+		        }
+		        //日常计划
 				root.findViewById(R.id.popup_daily).setOnClickListener(
 						new View.OnClickListener() {	
 					@Override
@@ -76,6 +94,7 @@ public class StartActivity extends Activity {
 						Intent intent = new Intent();
 						intent.setClass(StartActivity.this,AddDailyPlanActivity.class);
 						startActivity(intent);
+						popWinsowPlan.dismiss();
 					}
 				});
 				//临时计划
@@ -86,9 +105,9 @@ public class StartActivity extends Activity {
 						Intent intent = new Intent();
 						intent.setClass(StartActivity.this,AddTemporaryPlanActivity.class);
 						startActivity(intent);
+						popWinsowPlan.dismiss();
 					}
 				});
-				
 			}
 		});
 	}

@@ -46,7 +46,9 @@
     <string name="popup_temporary">临时计划</string>
     <string name="popup_close">　关闭　</string>
     <string name="title_activity_add_temporory">AddTempororyActivity</string>
+    <string name="administrator">管理员</string>
+    <string name="general_user">普通用户</string>
     <string name="miss_call">未接电话</string>
     <string name="miss_msg">未读短信</string>
-     <string name="intercept_activity_record">拦截记录</string>
+    <string name="intercept_activity_record">拦截记录</string>
 </resources>

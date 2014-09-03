@@ -104,9 +104,9 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 		if (v.getId() == R.id.input_begin_time_edit) {  
 			setDateAndTime(event, builder, datePicker, timePicker, setStartTime);
 		} 
-		else if (v.getId() == R.id.input_end_time_edit) {  
+		else if (v.getId() == R.id.input_end_time_edit) {
 			setDateAndTime(event, builder, datePicker, timePicker, setEndTime);
-		}		
+		}
 	}
 	
 	private void setDateAndTime(MotionEvent event, AlertDialog.Builder builder,
@@ -145,5 +145,4 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 }
