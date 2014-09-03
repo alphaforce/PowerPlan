@@ -1,6 +1,5 @@
 package com.alphaforce.powerplan.model;
 
-import java.util.Date;
 import java.util.List;
 
 public class Plan {
