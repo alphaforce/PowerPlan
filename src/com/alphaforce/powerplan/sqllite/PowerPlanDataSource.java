@@ -8,6 +8,7 @@ import com.alphaforce.powerplan.sqllite.PowerPlanDatabaseHelper.LocationCursor;
 import com.alphaforce.powerplan.sqllite.PowerPlanDatabaseHelper.PlanCursor;
 
 import android.content.Context;
+import android.database.Cursor;
 
 public class PowerPlanDataSource {
 
@@ -20,7 +21,12 @@ public class PowerPlanDataSource {
 		mDBHelper = new PowerPlanDatabaseHelper(mContext);
 	}
 
-	public PowerPlanDataSource get(Context context) {
+	/**
+	 * 单例获取数据源
+	 * @param context 上下文
+	 * @return
+	 */
+	public static PowerPlanDataSource get(Context context) {
 		if (sDataSource == null) {
 			sDataSource = new PowerPlanDataSource(context);
 		}
@@ -39,10 +45,19 @@ public class PowerPlanDataSource {
 		return mDBHelper.updatePlan(plan);
 	}
 
+	/**
+	 * 单表查询计划信息，无位置信息及状态
+	 * @return
+	 */
 	public PlanCursor queryAllPlans() {
 		return mDBHelper.queryAllPlans();
 	}
 
+	/**
+	 * 根据ID单表查询计划信息，无位置信息及状态
+	 * @param id
+	 * @return
+	 */
 	public Plan queryPlanbyId(int id) {
 		Plan plan = null;
 		PlanCursor cursor = mDBHelper.queryPlanById(id);
@@ -52,6 +67,23 @@ public class PowerPlanDataSource {
 		}
 		cursor.close();
 		return plan;
+	}
+	
+	/**
+	 * 多表查询，获取所有计划及相关位置信息
+	 * @return
+	 */
+	public Cursor queryAllPlanInfoes(){
+		return mDBHelper.queryAllPlanInfoes();
+	}
+	
+	/**
+	 * 多表查询，获取计划及相关位置信息
+	 * @param id
+	 * @return
+	 */
+	public Plan queryPlanInfoById(long id){
+		return mDBHelper.queryPlanInfoById(id);
 	}
 
 	public List<Integer> queryPlanStatusById(long planId) {
