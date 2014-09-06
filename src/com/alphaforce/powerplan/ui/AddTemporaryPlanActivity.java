@@ -3,8 +3,8 @@ package com.alphaforce.powerplan.ui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
 import com.alphaforce.powerplan.R;
 import com.alphaforce.powerplan.model.Plan;
 import com.alphaforce.powerplan.sqllite.PowerPlanDataSource;
@@ -80,19 +80,23 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 				
 				EditText btnName = (EditText) findViewById(R.id.addPlanName);
 				planItem.setName(btnName.getText().toString());
+				if(btnName.getText().toString().equals(null))
+				{
+					;
+				}
 				
 				EditText btnContent = (EditText) findViewById(R.id.planName);
 				planItem.setContent(btnContent.getText().toString());
 				
 				EditText btnBegTime = (EditText) findViewById(R.id.input_begin_time_edit);
 				Calendar calandarBegin = Calendar.getInstance();
-//				long beginTime = beginEndTime(btnBegTime, calandarBegin);
-				planItem.setStartTime(123122212l);
+				long beginTime = beginEndTime(btnBegTime, calandarBegin);
+				planItem.setStartTime(beginTime);
 								
 				EditText btnEndTime = (EditText) findViewById(R.id.input_end_time_edit);
 				Calendar calandarEnd = Calendar.getInstance();
-//				long endTime = beginEndTime(btnEndTime, calandarEnd);
-				planItem.setEndTime(1234541464l);
+				long endTime = beginEndTime(btnEndTime, calandarEnd);
+				planItem.setEndTime(endTime);
 				
 				EditText btnAddress = (EditText) findViewById(R.id.input_plan_address);
 				planItem.setAddress(btnAddress.getText().toString());
@@ -106,16 +110,14 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 			private long beginEndTime(EditText editTime,
 					Calendar calandarBegin) {
 				String strTime = editTime.getText().toString();
-				Date date = new Date(strTime);
-//				int year = Integer.parseInt(strTime.substring(0, 4));
-//				int month = Integer.parseInt(strTime.substring(5, 7));
-//				int day = Integer.parseInt(strTime.substring(8, 10));
-//				int hour = Integer.parseInt(strTime.substring(12, 13));
-//				int minute = Integer.parseInt(strTime.substring(14, strTime.length()));
-//				calandarBegin.set(year, month, day, hour, minute,0);
+				int year = Integer.parseInt(strTime.substring(0, 4));
+				int month = Integer.parseInt(strTime.substring(5, 7));
+				int day = Integer.parseInt(strTime.substring(8, 10));
+				int hour = Integer.parseInt(strTime.substring(12, 14));
+				int minute = Integer.parseInt(strTime.substring(15, strTime.length()));
 				
-//				return calandarBegin.getTimeInMillis();
-				return date.getTime();
+				calandarBegin.set(year, month, day, hour, minute,0);
+				return calandarBegin.getTimeInMillis();
 			}			
 		});
 	}
@@ -132,10 +134,10 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
         	
             View view = View.inflate(this, R.layout.date_time_dialog, null);
 
-        	builder = new AlertDialog.Builder(this);  
+        	builder = new AlertDialog.Builder(this);
             datePicker = (DatePicker) view.findViewById(R.id.date_picker);  
             timePicker = (TimePicker) view.findViewById(R.id.time_picker);  
-            builder.setView(view);  
+            builder.setView(view);
   
             calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -177,14 +179,12 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {  
 		    	StringBuffer sb = new StringBuffer();  
-		        sb.append(String.format("%d-%02d-%02d",   
-		                datePicker.getYear(),   
-		                datePicker.getMonth() + 1,   
-		                datePicker.getDayOfMonth()));
-		        sb.append("  ")
-		          .append(timePicker.getCurrentHour())
-		          .append(":")
-		          .append(timePicker.getCurrentMinute());
+		        sb.append(String.format("%d-%02d-%02d  %02d:%02d",
+		                datePicker.getYear(),
+		                datePicker.getMonth() + 1,
+		                datePicker.getDayOfMonth(),
+		                timePicker.getCurrentHour(),
+		                timePicker.getCurrentMinute()));
 		        dateTime.setText(sb);
 		        dialog.cancel();  
 		    }

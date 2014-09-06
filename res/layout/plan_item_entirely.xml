@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:textSize="20sp"/>
         <TextView
-            android:id="@+id/item_model"
+            android:id="@+id/item_auther"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_shape"
