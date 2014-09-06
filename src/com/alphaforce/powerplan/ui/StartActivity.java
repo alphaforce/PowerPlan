@@ -121,23 +121,6 @@ public class StartActivity extends Activity {
 			}
 		});
 		
-		PowerPlanDataSource ds = PowerPlanDataSource.get(this);
-		Plan plan = new Plan();
-		plan.setName("plan name");
-		plan.setAuthor("null");
-		plan.setContent("plan content");
-		plan.setAddress("plan address");
-		plan.setLatitude(0.0);
-		plan.setLongitude(0.0);
-		plan.setStartTime(122333l);
-		plan.setEndTime(12345232l);
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(2);
-		plan.setStatus(list);
-		long i = ds.insertPlan(plan);
-		
-		Plan p = ds.queryPlanbyId(i);
-		Log.i("test", p.getName()  + "  ");
 	}
 
 	protected void onListItemClick(ListView arg0, View arg1, int arg2, long arg3){
