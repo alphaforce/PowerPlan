@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.widget.CursorAdapter;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,7 @@ public class StartActivity extends Activity {
 	private String[] planEndTimes = {"结束1","结束2"};
 	private String[] planContents = {"内容1","内容2"};
 	private ListView listview;
-	private SimpleAdapter adapter;
+	private SimpleAdapter planAdapter;
 	private PopupWindow popWinsowPlan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,7 @@ public class StartActivity extends Activity {
 				});
 			}
 		});
+		
 	}
 
 	protected void onListItemClick(ListView arg0, View arg1, int arg2, long arg3){
@@ -202,6 +204,27 @@ public class StartActivity extends Activity {
 	}
 
 	public void addSimpleListViewItem() {
+//		Plan plan = new Plan();
+//		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
+//		PlanCursor planCursor = planItem.queryAllPlans();
+//		
+//		List<Map<String, Object>> listPlan = new ArrayList<Map<String, Object>>();
+//		while(planCursor.moveToFirst())
+//		{
+//			plan = planCursor.getPlan();
+//			Map<String, Object> listPlanItem = new HashMap<String, Object>();
+//			listPlanItem.put("beginTimes", plan.getStartTime());
+//			listPlanItem.put("endTimes", plan.getEndTime());
+//			listPlanItem.put("contents", plan.getContent());
+//			listPlan.add(listPlanItem);
+//		}
+//		planAdapter = new SimpleAdapter(
+//				this, 
+//				listPlan,
+//				R.layout.plan_item_simple, 
+//				new String[] {"beginTimes","beginTimes","contents"},
+//				new int[]{R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
+		
 		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
 		for(int i=0; i<planBegTimes.length; ++i)
 		{
@@ -211,64 +234,61 @@ public class StartActivity extends Activity {
 			listItem.put("contents", planContents[i]);
 			lists.add(listItem);
 		}
-		adapter = new SimpleAdapter(this, lists, 
+		planAdapter = new SimpleAdapter(this, lists, 
 				R.layout.plan_item_simple, 
 				new String[] {"times1","times2","contents"},
 				new int[] {R.id.begin_time_simple,R.id.end_time_simple,R.id.content_simple}); 
 		listview = (ListView) this.findViewById(R.id.mylist);
-		listview.setAdapter(adapter);
+		listview.setAdapter(planAdapter);
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void addListViewItem() {
-//		Plan plan = new Plan();
-//		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
-//		PlanCursor planCursor = planItem.queryAllPlans();
-//		
+	public void addListViewItem(){
+		Plan plan = new Plan();
+		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
+		PlanCursor planCursor = planItem.queryAllPlans();
+		
+		List<Map<String, Object>> listPlan = new ArrayList<Map<String, Object>>();
+		while(planCursor.moveToFirst())
+		{
+			plan = planCursor.getPlan();
+			Map<String, Object> listPlanItem = new HashMap<String, Object>();
+			listPlanItem.put("names", plan.getName());
+			listPlanItem.put("places", plan.getAddress());
+			listPlanItem.put("authers", plan.getAuthor());
+			listPlanItem.put("beginTimes", plan.getStartTime());
+			listPlanItem.put("endTimes", plan.getEndTime());
+			listPlanItem.put("contents", plan.getContent());
+			listPlan.add(listPlanItem);
+		}
+		planAdapter = new SimpleAdapter(
+				this, 
+				listPlan, 
+				R.layout.plan_item_entirely, 
+				new String[] {"names","places","authers",
+						"beginTimes","endTimes","contents"},
+				new int[]{R.id.item_name, R.id.item_place, R.id.item_auther,
+						R.id.item_begin_time, R.id.item_end_time, R.id.item_content});	
+		
 //		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
-//		while(planCursor.moveToFirst())
+//		for(int i=0; i<planNames.length; ++i)
 //		{
-//			plan = planCursor.getPlan();
 //			Map<String, Object> listItem = new HashMap<String, Object>();
-//			listItem.put("names", plan.getName());
-//			listItem.put("places", plan.getAddress());
-//			listItem.put("authers", plan.getAuthor());
-//			listItem.put("beginTimes", plan.getStartTime());
-//			listItem.put("endTimes", plan.getEndTime());
-//			listItem.put("contents", plan.getContent());
+//			listItem.put("names", planNames[i]);
+//			listItem.put("places", planplaces[i]);
+//			listItem.put("times1", planBegTimes[i]);
+//			listItem.put("times2", planEndTimes[i]);
+//			listItem.put("contents", planContents[i]);
+//			listItem.put("models", planModels[i]);
 //			lists.add(listItem);
 //		}
-//				
-//		adapter = new SimpleCursorAdapter(
-//				StartActivity.this, 
+//		adapter = new SimpleAdapter(this, lists, 
 //				R.layout.plan_item_entirely, 
-//				planCursor, 
-//				new String[]{"names","places","authers",
-//						"beginTimes","endTimes","contents"}, 
+//				new String[] {"names","places","times1","times2",
+//					"contents","models"},
 //				new int[]{R.id.item_name, R.id.item_place, R.id.item_model,
-//						R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
-//		
-		
-		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
-		for(int i=0; i<planNames.length; ++i)
-		{
-			Map<String, Object> listItem = new HashMap<String, Object>();
-			listItem.put("names", planNames[i]);
-			listItem.put("places", planplaces[i]);
-			listItem.put("times1", planBegTimes[i]);
-			listItem.put("times2", planEndTimes[i]);
-			listItem.put("contents", planContents[i]);
-			listItem.put("models", planModels[i]);
-			lists.add(listItem);
-		}
-		adapter = new SimpleAdapter(this, lists, 
-				R.layout.plan_item_entirely, 
-				new String[] {"names","places","times1","times2",
-					"contents","models"},
-				new int[]{R.id.item_name, R.id.item_place, R.id.item_model,
-					R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
+//					R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
 		listview = (ListView) this.findViewById(R.id.mylist);
-		listview.setAdapter(adapter);
+		listview.setAdapter(planAdapter);
 	}
 
 	@Override
@@ -291,7 +311,5 @@ public class StartActivity extends Activity {
 			break;		
 		}
 		return true;
-	}
-	
-	
+	}	
 }
