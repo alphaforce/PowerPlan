@@ -41,27 +41,24 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	private static final String STATUS_PLAN_ID = "s_id";
 
 	private static final String CREATE_TABLE_PLAN = "CREATE TABLE '"
-			+ PLAN_TABLE_NAME + "' ('" + PLAN_ID + "' INTEGER NOT NULL, '"
+			+ PLAN_TABLE_NAME + "' ('" + PLAN_ID + "' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '"
 			+ PLAN_NAME + "' TEXT NOT NULL, '" 
 			+ PLAN_BEGIN_TIME + "' INTEGER NOT NULL, '"
 			+ PLAN_END_TIME + "' INTEGER NOT NULL, '"
 			+ PLAN_CONTENT + "' TEXT NOT NULL, '"
 			+ PLAN_LOC_ID + "' INTEGER NOT NULL, '" 
-			+ PLAN_AUTHOR + "' TEXT NOT NULL, "
-			+ "PRIMARY KEY ('" + PLAN_ID + "'));";
+			+ PLAN_AUTHOR + "' TEXT NOT NULL); ";
 
 	private static final String CREATE_TABLE_LOC = "CREATE TABLE '"
-			+ LOC_TABLE_NAME + "' ('" + LOC_ID + "' INTEGER NOT NULL, '"
+			+ LOC_TABLE_NAME + "' ('" + LOC_ID + "' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '"
 			+ LOC_ADDRESS + "' TEXT NOT NULL, '"
 			+ LOC_LONGITUDE + "' REAL NOT NULL, '"
-			+ LOC_LATITUDE + "' REAL NOT NULL, "
-			+ "PRIMARY KEY ('" + LOC_ID + "'));";
+			+ LOC_LATITUDE + "' REAL NOT NULL);";
 
 	private static final String CREATE_TABLE_STATUS = "CREATE TABLE '"
-			+ STATUS_TABLE_NAME + "' ('" + STATUS_ID + "' INTEGER NOT NULL, '"
+			+ STATUS_TABLE_NAME + "' ('" + STATUS_ID + "' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '"
 			+ STATUS_STATUS + "' INTEGER NOT NULL, '"
-			+ STATUS_PLAN_ID + "' INTEGER NOT NULL,"
-			+ " PRIMARY KEY ('" + STATUS_ID + "'));";
+			+ STATUS_PLAN_ID + "' INTEGER NOT NULL);";
 
 	
 	public PowerPlanDatabaseHelper(Context context) { 
@@ -101,8 +98,8 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 			ContentValues cv = new ContentValues();
 			cv.put(PLAN_NAME, plan.getName());
 			cv.put(PLAN_CONTENT, plan.getContent());
-			cv.put(PLAN_BEGIN_TIME, DateFormat.format("", plan.getStartTime()).toString());
-			cv.put(PLAN_END_TIME, DateFormat.format("", plan.getEndTime()).toString());
+			cv.put(PLAN_BEGIN_TIME, plan.getStartTime());
+			cv.put(PLAN_END_TIME, plan.getEndTime());
 			cv.put(PLAN_LOC_ID, plan.getLocactionId());
 			cv.put(PLAN_AUTHOR, plan.getAuthor());
 			
@@ -110,6 +107,10 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 			for(int i : plan.getStatus()){
 				insertStatus(planId, i);
 			}
+			db.setTransactionSuccessful();
+		}catch(Exception e){
+			planId = -1;
+			Log.e(TAG,e.toString());
 		} finally {
 			db.endTransaction();
 		}
@@ -118,7 +119,7 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public int deletePlanById(long id){
-		return getWritableDatabase().delete(PLAN_TABLE_NAME, PLAN_ID, 
+		return getWritableDatabase().delete(PLAN_TABLE_NAME, PLAN_ID+"=?", 
 				new String[]{String.valueOf(id)});
 	}
 	
@@ -126,8 +127,8 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put(PLAN_NAME, plan.getName());
 		cv.put(PLAN_CONTENT, plan.getContent());
-		cv.put(PLAN_BEGIN_TIME, DateFormat.format("", plan.getStartTime()).toString());
-		cv.put(PLAN_END_TIME, DateFormat.format("", plan.getEndTime()).toString());
+		cv.put(PLAN_BEGIN_TIME, plan.getStartTime());
+		cv.put(PLAN_END_TIME, plan.getEndTime());
 		cv.put(PLAN_LOC_ID, plan.getLocactionId());
 		cv.put(PLAN_AUTHOR, plan.getAuthor());
 		cv.put(PLAN_ID, plan.getId());
@@ -136,7 +137,7 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public PlanCursor queryPlanById(long id){
-		Cursor cursor = getWritableDatabase().query(PLAN_TABLE_NAME, null, PLAN_ID, 
+		Cursor cursor = getWritableDatabase().query(PLAN_TABLE_NAME, null, PLAN_ID + "= ?", 
 				new String[]{String.valueOf(id)}, null, null, null);
 		return new PlanCursor(cursor);
 	}
@@ -203,7 +204,7 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public int deleteLocationBuId(long id){
-		return getWritableDatabase().delete(LOC_TABLE_NAME, LOC_ID, 
+		return getWritableDatabase().delete(LOC_TABLE_NAME, LOC_ID+"=?", 
 				new String[]{String.valueOf(id)});
 	}
 	
@@ -213,13 +214,13 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 		cv.put(LOC_ADDRESS, loc.getAddress());
 		cv.put(LOC_LONGITUDE, loc.getLongitude());
 		cv.put(LOC_LATITUDE, loc.getLatitude());
-		return getWritableDatabase().update(LOC_TABLE_NAME, cv, LOC_ID, 
+		return getWritableDatabase().update(LOC_TABLE_NAME, cv, LOC_ID+"=?", 
 				new String[]{String.valueOf(loc.getId())});
 	}
 	
 	public LocationCursor queryLocationById(long id){
 		Cursor cursor = getReadableDatabase().query(LOC_TABLE_NAME, 
-				null, LOC_ID, new String[]{String.valueOf(id)},
+				null, LOC_ID + "=?", new String[]{String.valueOf(id)},
 				null, null, null);
 		return new LocationCursor(cursor);
 	}
@@ -244,7 +245,7 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	
 	public List<Integer> queryStatusByPlanId(long id){
 		Cursor cursor = getReadableDatabase().query(STATUS_TABLE_NAME, new String[]{STATUS_STATUS},
-				STATUS_PLAN_ID, new String[]{String.valueOf(id)}, null, null, null);
+				STATUS_PLAN_ID +"= ?", new String[]{String.valueOf(id)}, null, null, null);
 		List<Integer> list = new ArrayList<Integer>();
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
