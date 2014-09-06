@@ -41,27 +41,24 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 	private static final String STATUS_PLAN_ID = "s_id";
 
 	private static final String CREATE_TABLE_PLAN = "CREATE TABLE '"
-			+ PLAN_TABLE_NAME + "' ('" + PLAN_ID + "' INTEGER NOT NULL, '"
+			+ PLAN_TABLE_NAME + "' ('" + PLAN_ID + "' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '"
 			+ PLAN_NAME + "' TEXT NOT NULL, '" 
 			+ PLAN_BEGIN_TIME + "' INTEGER NOT NULL, '"
 			+ PLAN_END_TIME + "' INTEGER NOT NULL, '"
 			+ PLAN_CONTENT + "' TEXT NOT NULL, '"
 			+ PLAN_LOC_ID + "' INTEGER NOT NULL, '" 
-			+ PLAN_AUTHOR + "' TEXT NOT NULL, "
-			+ "PRIMARY KEY ('" + PLAN_ID + "'));";
+			+ PLAN_AUTHOR + "' TEXT NOT NULL); ";
 
 	private static final String CREATE_TABLE_LOC = "CREATE TABLE '"
-			+ LOC_TABLE_NAME + "' ('" + LOC_ID + "' INTEGER NOT NULL, '"
+			+ LOC_TABLE_NAME + "' ('" + LOC_ID + "' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '"
 			+ LOC_ADDRESS + "' TEXT NOT NULL, '"
 			+ LOC_LONGITUDE + "' REAL NOT NULL, '"
-			+ LOC_LATITUDE + "' REAL NOT NULL, "
-			+ "PRIMARY KEY ('" + LOC_ID + "'));";
+			+ LOC_LATITUDE + "' REAL NOT NULL);";
 
 	private static final String CREATE_TABLE_STATUS = "CREATE TABLE '"
-			+ STATUS_TABLE_NAME + "' ('" + STATUS_ID + "' INTEGER NOT NULL, '"
+			+ STATUS_TABLE_NAME + "' ('" + STATUS_ID + "' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, '"
 			+ STATUS_STATUS + "' INTEGER NOT NULL, '"
-			+ STATUS_PLAN_ID + "' INTEGER NOT NULL,"
-			+ " PRIMARY KEY ('" + STATUS_ID + "'));";
+			+ STATUS_PLAN_ID + "' INTEGER NOT NULL);";
 
 	
 	public PowerPlanDatabaseHelper(Context context) { 
@@ -110,6 +107,10 @@ public class PowerPlanDatabaseHelper extends SQLiteOpenHelper {
 			for(int i : plan.getStatus()){
 				insertStatus(planId, i);
 			}
+			db.setTransactionSuccessful();
+		}catch(Exception e){
+			planId = -1;
+			Log.e(TAG,e.toString());
 		} finally {
 			db.endTransaction();
 		}
