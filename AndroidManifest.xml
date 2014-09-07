@@ -50,6 +50,12 @@
             android:name="com.alphaforce.powerplan.ui.ShowRecordActivity"  
             android:label="@string/intercept_activity_record" >
         </activity>
+        <receiver 
+            android:name="com.alphaforce.powerplan.receiver.WindowBroadcastReveicer">
+            <intent-filter >
+                <action android:name="WindowBroadcastReveicer"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
