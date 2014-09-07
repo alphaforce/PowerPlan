@@ -1,6 +1,7 @@
 package com.alphaforce.powerplan.ui;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,31 +10,26 @@ import com.alphaforce.powerplan.R;
 import com.alphaforce.powerplan.model.Plan;
 import com.alphaforce.powerplan.sqllite.PowerPlanDataSource;
 import com.alphaforce.powerplan.sqllite.PowerPlanDatabaseHelper.PlanCursor;
+import com.alphaforce.powerplan.ui.adapter.PlanEntireAdapter;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.widget.CursorAdapter;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
 
 public class StartActivity extends Activity {
 	
@@ -45,6 +41,8 @@ public class StartActivity extends Activity {
 	private String[] planContents = {"内容1","内容2"};
 	private ListView listview;
 	private SimpleAdapter planAdapter;
+	private PlanEntireAdapter mPlanAdapter;
+	private List<Plan> listItemPlan;
 	private PopupWindow popWinsowPlan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,9 @@ public class StartActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.start_activity);
 				
+		//addSimpleListViewItem();
 		addListViewItem();//显示列表内容
+		//addListViewItemMyAdapter();
 		planOnclickListener();//短按
 		planOnLongclickListener();//长按
 
@@ -120,7 +120,6 @@ public class StartActivity extends Activity {
 				});
 			}
 		});
-		
 	}
 
 	protected void onListItemClick(ListView arg0, View arg1, int arg2, long arg3){
@@ -157,6 +156,11 @@ public class StartActivity extends Activity {
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface alertDialog, int pos){
 						//从数据库删除数据;
+						Plan plan = new Plan();
+						PowerPlanDataSource planItem = PowerPlanDataSource.get(StartActivity.this);
+						PlanCursor planCursor = planItem.queryAllPlans();
+						
+						;
 					}
 				});
 				alertDialog.setNeutralButton("编辑", 
@@ -202,64 +206,55 @@ public class StartActivity extends Activity {
 			}
 		});
 	}
-
-	public void addSimpleListViewItem() {
+	
+//	public void addListViewItemMyAdapter(){
 //		Plan plan = new Plan();
-//		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
+//		PowerPlanDataSource planItem = PowerPlanDataSource.get(StartActivity.this);
 //		PlanCursor planCursor = planItem.queryAllPlans();
 //		
-//		List<Map<String, Object>> listPlan = new ArrayList<Map<String, Object>>();
-//		while(planCursor.moveToFirst())
+//		listItemPlan = new ArrayList<Plan>();
+//		planCursor.moveToFirst();
+//		while(!planCursor.isAfterLast())
 //		{
 //			plan = planCursor.getPlan();
-//			Map<String, Object> listPlanItem = new HashMap<String, Object>();
-//			listPlanItem.put("beginTimes", plan.getStartTime());
-//			listPlanItem.put("endTimes", plan.getEndTime());
-//			listPlanItem.put("contents", plan.getContent());
-//			listPlan.add(listPlanItem);
+//			listItemPlan.add(plan);
+//			planCursor.moveToNext();
 //		}
-//		planAdapter = new SimpleAdapter(
-//				this, 
-//				listPlan,
-//				R.layout.plan_item_simple, 
-//				new String[] {"beginTimes","beginTimes","contents"},
-//				new int[]{R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
-		
-		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
-		for(int i=0; i<planBegTimes.length; ++i)
-		{
-			Map<String, Object> listItem = new HashMap<String, Object>();
-			listItem.put("times1", planBegTimes[i]);
-			listItem.put("times2", planEndTimes[i]);
-			listItem.put("contents", planContents[i]);
-			lists.add(listItem);
-		}
-		planAdapter = new SimpleAdapter(this, lists, 
-				R.layout.plan_item_simple, 
-				new String[] {"times1","times2","contents"},
-				new int[] {R.id.begin_time_simple,R.id.end_time_simple,R.id.content_simple}); 
-		listview = (ListView) this.findViewById(R.id.mylist);
-		listview.setAdapter(planAdapter);
-	}
+//		
+//		mPlanAdapter = new PlanEntireAdapter(this,listItemPlan);
+//		listview = (ListView) this.findViewById(R.id.mylist);
+//		listview.setAdapter(mPlanAdapter);
+//	}
 	
 	public void addListViewItem(){
 		Plan plan = new Plan();
-		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
+		PowerPlanDataSource planItem = PowerPlanDataSource.get(StartActivity.this);
 		PlanCursor planCursor = planItem.queryAllPlans();
-		
+
+		Calendar calendar = Calendar.getInstance();
 		List<Map<String, Object>> listPlan = new ArrayList<Map<String, Object>>();
-		while(planCursor.moveToFirst())
+		planCursor.moveToFirst();
+		while(!planCursor.isAfterLast())
 		{
 			plan = planCursor.getPlan();
 			Map<String, Object> listPlanItem = new HashMap<String, Object>();
 			listPlanItem.put("names", plan.getName());
 			listPlanItem.put("places", plan.getAddress());
 			listPlanItem.put("authers", plan.getAuthor());
-			listPlanItem.put("beginTimes", plan.getStartTime());
-			listPlanItem.put("endTimes", plan.getEndTime());
+			
+			calendar.setTimeInMillis(plan.getStartTime());
+			String strBeing = CalendarLongToString(calendar);
+			listPlanItem.put("beginTimes", strBeing);
+			
+			calendar.setTimeInMillis(plan.getEndTime());
+			String strEnd = CalendarLongToString(calendar);
+			listPlanItem.put("endTimes", strEnd);
+			
 			listPlanItem.put("contents", plan.getContent());
 			listPlan.add(listPlanItem);
+			planCursor.moveToNext();
 		}
+		
 		planAdapter = new SimpleAdapter(
 				this, 
 				listPlan, 
@@ -267,7 +262,7 @@ public class StartActivity extends Activity {
 				new String[] {"names","places","authers",
 						"beginTimes","endTimes","contents"},
 				new int[]{R.id.item_name, R.id.item_place, R.id.item_auther,
-						R.id.item_begin_time, R.id.item_end_time, R.id.item_content});	
+						R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
 		
 //		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
 //		for(int i=0; i<planNames.length; ++i)
@@ -281,16 +276,74 @@ public class StartActivity extends Activity {
 //			listItem.put("models", planModels[i]);
 //			lists.add(listItem);
 //		}
-//		adapter = new SimpleAdapter(this, lists, 
+//		planAdapter = new SimpleAdapter(this, lists, 
 //				R.layout.plan_item_entirely, 
 //				new String[] {"names","places","times1","times2",
 //					"contents","models"},
-//				new int[]{R.id.item_name, R.id.item_place, R.id.item_model,
+//				new int[]{R.id.item_name, R.id.item_place, R.id.item_auther,
 //					R.id.item_begin_time, R.id.item_end_time, R.id.item_content});
 		listview = (ListView) this.findViewById(R.id.mylist);
 		listview.setAdapter(planAdapter);
 	}
 
+	public void addSimpleListViewItem() {
+		Plan plan = new Plan();
+		PowerPlanDataSource planItem = PowerPlanDataSource.get(this);
+		PlanCursor planCursor = planItem.queryAllPlans();
+
+		Calendar calendar = Calendar.getInstance();
+		List<Map<String, Object>> listPlan = new ArrayList<Map<String, Object>>();
+		planCursor.moveToFirst();
+		while(!planCursor.isAfterLast())
+		{
+			plan = planCursor.getPlan();
+			Map<String, Object> listPlanItem = new HashMap<String, Object>();
+			
+			calendar.setTimeInMillis(plan.getStartTime());
+			String strBeing = CalendarLongToString(calendar);
+			listPlanItem.put("beginTimes", strBeing);
+			
+			calendar.setTimeInMillis(plan.getEndTime());
+			String strEnd = CalendarLongToString(calendar);
+			listPlanItem.put("endTimes", strEnd);
+			
+			listPlanItem.put("contents", plan.getContent());
+			listPlan.add(listPlanItem);
+			planCursor.moveToNext();
+		}
+		planAdapter = new SimpleAdapter(
+				this, 
+				listPlan, 
+				R.layout.plan_item_simple, 
+				new String[] {"beginTimes","endTimes","contents"},
+				new int[]{R.id.begin_time_simple, R.id.end_time_simple, R.id.content_simple});
+		
+//		List<Map<String, Object>> lists = new ArrayList<Map<String, Object>>();
+//		for(int i=0; i<planBegTimes.length; ++i)
+//		{
+//			Map<String, Object> listItem = new HashMap<String, Object>();
+//			listItem.put("times1", planBegTimes[i]);
+//			listItem.put("times2", planEndTimes[i]);
+//			listItem.put("contents", planContents[i]);
+//			lists.add(listItem);
+//		}
+//		planAdapter = new SimpleAdapter(this, lists, 
+//				R.layout.plan_item_simple, 
+//				new String[] {"times1","times2","contents"},
+//				new int[] {R.id.begin_time_simple,R.id.end_time_simple,R.id.content_simple}); 
+		listview = (ListView) this.findViewById(R.id.mylist);
+		listview.setAdapter(planAdapter);
+	}
+
+	private String CalendarLongToString(Calendar calendar) {
+		String strCalendar = calendar.get(Calendar.YEAR)+"-"+
+				calendar.get(Calendar.MONTH)+"-"+
+				calendar.get(Calendar.DAY_OF_MONTH)+" "+
+				calendar.get(Calendar.HOUR_OF_DAY)+":"+
+				calendar.get(Calendar.MINUTE);
+		return strCalendar;
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);

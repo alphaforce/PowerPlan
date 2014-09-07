@@ -58,7 +58,10 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 		btnCancel.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				IntentToStartActivity();
+				Intent intent = new Intent();
+				intent.setClass(AddTemporaryPlanActivity.this, StartActivity.class);
+				startActivity(intent);
+				finish();
 			}
 		});
 	}
@@ -80,10 +83,6 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 				
 				EditText btnName = (EditText) findViewById(R.id.addPlanName);
 				planItem.setName(btnName.getText().toString());
-				if(btnName.getText().toString().equals(null))
-				{
-					;
-				}
 				
 				EditText btnContent = (EditText) findViewById(R.id.planName);
 				planItem.setContent(btnContent.getText().toString());
@@ -92,7 +91,7 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 				Calendar calandarBegin = Calendar.getInstance();
 				long beginTime = beginEndTime(btnBegTime, calandarBegin);
 				planItem.setStartTime(beginTime);
-								
+				
 				EditText btnEndTime = (EditText) findViewById(R.id.input_end_time_edit);
 				Calendar calandarEnd = Calendar.getInstance();
 				long endTime = beginEndTime(btnEndTime, calandarEnd);
@@ -101,32 +100,30 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 				EditText btnAddress = (EditText) findViewById(R.id.input_plan_address);
 				planItem.setAddress(btnAddress.getText().toString());
 				
-				PowerPlanDataSource planDataSource = PowerPlanDataSource.get(AddTemporaryPlanActivity.this);
+				PowerPlanDataSource planDataSource = 
+						PowerPlanDataSource.get(AddTemporaryPlanActivity.this);
 				planDataSource.insertPlan(planItem);
 				
-				IntentToStartActivity();
+				//jump to StartActivity
+				Intent intent = new Intent();
+				intent.setClass(AddTemporaryPlanActivity.this, StartActivity.class);
+				startActivity(intent);
+				finish();
 			}
 
-			private long beginEndTime(EditText editTime,
-					Calendar calandarBegin) {
+			private long beginEndTime(EditText editTime,Calendar calandarBegin) {
 				String strTime = editTime.getText().toString();
-				int year = Integer.parseInt(strTime.substring(0, 4));
-				int month = Integer.parseInt(strTime.substring(5, 7));
-				int day = Integer.parseInt(strTime.substring(8, 10));
-				int hour = Integer.parseInt(strTime.substring(12, 14));
-				int minute = Integer.parseInt(strTime.substring(15, strTime.length()));
-				
-				calandarBegin.set(year, month, day, hour, minute,0);
+				if(!strTime.isEmpty()){
+					int year = Integer.parseInt(strTime.substring(0, 4));
+					int month = Integer.parseInt(strTime.substring(5, 7));
+					int day = Integer.parseInt(strTime.substring(8, 10));
+					int hour = Integer.parseInt(strTime.substring(12, 14));
+					int minute = Integer.parseInt(strTime.substring(15, strTime.length()));
+					calandarBegin.set(year, month, day, hour, minute,0);
+				}
 				return calandarBegin.getTimeInMillis();
 			}			
 		});
-	}
-	
-	public void IntentToStartActivity() {
-		Intent intent = new Intent();
-		intent.setClass(AddTemporaryPlanActivity.this, StartActivity.class);
-		startActivity(intent);
-		finish();
 	}
 	
 	public boolean onTouch(View v, MotionEvent event) {  
@@ -195,7 +192,6 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
