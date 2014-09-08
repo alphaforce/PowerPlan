@@ -1,6 +1,7 @@
 
 package com.alphaforce.powerplan.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -127,6 +128,7 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 					int day = Integer.parseInt(strTime.substring(8, 10));
 					int hour = Integer.parseInt(strTime.substring(12, 14));
 					int minute = Integer.parseInt(strTime.substring(15, strTime.length()));
+					
 					calandarBegin.set(year, month-1, day, hour, minute,0);
 				}
 				return calandarBegin.getTimeInMillis();

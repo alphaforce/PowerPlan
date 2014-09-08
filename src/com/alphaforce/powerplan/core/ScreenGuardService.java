@@ -83,7 +83,7 @@ public class ScreenGuardService extends Service{
 		mSubView.setVisibility(View.GONE);
 		((ViewGroup)mView).addView(mSubView);
 		
-		mEmergeNumber = "13691762150";		//需要接口
+		mEmergeNumber = "10086";		//需要接口
 		TextView numText = (TextView) mView.findViewById(R.id.number); 
 		numText.setText(mEmergeNumber);
 		Button call = (Button) mView.findViewById(R.id.call_in);

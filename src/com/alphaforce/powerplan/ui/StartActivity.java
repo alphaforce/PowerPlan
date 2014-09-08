@@ -28,16 +28,6 @@ import android.widget.PopupWindow;
 
 public class StartActivity extends Activity {
 
-	private String[] planNames = {"计划1","计划2"};
-	private String[] planplaces = {"地点1","地点2"};
-	private String[] planModels = {"模式1","模式2"};
-	private String[] planBegTimes = {"开始1","开始2"};
-	private String[] planEndTimes = {"结束1","结束2"};
-	private String[] planContents = {"内容1","内容2"};
-	private ListView listview;
-	private SimpleAdapter planAdapter;
-	private List<Plan> listItemPlan;
-	private PopupWindow popWinsowPlan;
 	private ListView mListview;
 	private PlanEntireAdapter mPlanEntireAdapter;
 	private PlanSimpleAdapter mPlanSimpleAdapter;
