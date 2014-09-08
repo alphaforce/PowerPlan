@@ -1,18 +1,13 @@
 package com.alphaforce.powerplan.ui;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import com.alphaforce.powerplan.R;
 import com.alphaforce.powerplan.model.Plan;
 import com.alphaforce.powerplan.sqllite.PowerPlanDataSource;
 import com.alphaforce.powerplan.sqllite.PowerPlanDatabaseHelper.PlanCursor;
 import com.alphaforce.powerplan.ui.adapter.PlanEntireAdapter;
 import com.alphaforce.powerplan.ui.adapter.PlanSimpleAdapter;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,7 +25,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.SimpleAdapter;
 
 public class StartActivity extends Activity {
 
@@ -366,14 +360,14 @@ public class StartActivity extends Activity {
 //		listview.setAdapter(planAdapter);
 //	}
 
-	private String CalendarLongToString(Calendar calendar) {
-		String strCalendar = calendar.get(Calendar.YEAR)+"-"+
-				calendar.get(Calendar.MONTH)+"-"+
-				calendar.get(Calendar.DAY_OF_MONTH)+" "+
-				calendar.get(Calendar.HOUR_OF_DAY)+":"+
-				calendar.get(Calendar.MINUTE);
-		return strCalendar;
-	}
+//	private String CalendarLongToString(Calendar calendar) {
+//		String strCalendar = calendar.get(Calendar.YEAR)+"-"+
+//				calendar.get(Calendar.MONTH)+"-"+
+//				calendar.get(Calendar.DAY_OF_MONTH)+" "+
+//				calendar.get(Calendar.HOUR_OF_DAY)+":"+
+//				calendar.get(Calendar.MINUTE);
+//		return strCalendar;
+//	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
