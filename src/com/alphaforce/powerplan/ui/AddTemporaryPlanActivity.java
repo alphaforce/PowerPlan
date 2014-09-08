@@ -126,7 +126,7 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 					int day = Integer.parseInt(strTime.substring(8, 10));
 					int hour = Integer.parseInt(strTime.substring(12, 14));
 					int minute = Integer.parseInt(strTime.substring(15, strTime.length()));
-					calandarBegin.set(year, month, day, hour, minute,0);
+					calandarBegin.set(year, month-1, day, hour, minute,0);
 				}
 				return calandarBegin.getTimeInMillis();
 			}			
@@ -185,7 +185,7 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 		    	StringBuffer sb = new StringBuffer();  
 		        sb.append(String.format("%d-%02d-%02d  %02d:%02d",
 		                datePicker.getYear(),
-		                datePicker.getMonth() + 1,
+		                datePicker.getMonth() + 1 ,
 		                datePicker.getDayOfMonth(),
 		                timePicker.getCurrentHour(),
 		                timePicker.getCurrentMinute()));
