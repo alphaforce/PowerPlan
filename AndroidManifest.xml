@@ -12,6 +12,11 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+   	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
+ 	<uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name="com.alphaforce.powerplan.AppContext"
@@ -56,6 +61,35 @@
                 <action android:name="WindowBroadcastReveicer"/>
             </intent-filter>
         </receiver>
+        <service android:name="com.alphaforce.powerplan.core.ScreenGuardService" 
+            >
+            <intent-filter>
+                <action android:name="com.alphaforce.powerplan.core.SCREEN_GUARD_SERVICE" />
+            </intent-filter>
+        </service>
+        <receiver android:name="com.alphaforce.powerplan.core.SmsBroadcastReceiver"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        
+       	 <receiver android:name="com.alphaforce.powerplan.core.PhoneStatReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+       	<service android:name="com.alphaforce.powerplan.core.MyService" >
+            <intent-filter>
+                <action android:name="Service" />
+            </intent-filter>
+        </service>
+        <service android:name="com.alphaforce.powerplan.core.WindowService" >
+            <intent-filter>
+                <action android:name="WindowService" />
+            </intent-filter>
+        </service>
+       	
     </application>
 
 </manifest>

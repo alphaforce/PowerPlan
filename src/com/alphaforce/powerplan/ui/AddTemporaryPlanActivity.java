@@ -16,6 +16,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -102,9 +103,16 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 				
 				PowerPlanDataSource planDataSource = 
 						PowerPlanDataSource.get(AddTemporaryPlanActivity.this);
-				planDataSource.insertPlan(planItem);
-				Intent in = new Intent("WindowBroadcastReveicer");
-				sendBroadcast(in);
+				long tmp = planDataSource.insertPlan(planItem);
+				Log.i("denghanmin", "add" + tmp);
+				
+				//send Broadcast
+				Intent intentBroad = new Intent("WindowBroadcastReveicer");
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("plan", planItem);
+				intentBroad.putExtras(bundle);
+				sendBroadcast(intentBroad);
+				
 				//jump to StartActivity
 				Intent intent = new Intent();
 				intent.setClass(AddTemporaryPlanActivity.this, StartActivity.class);
@@ -123,7 +131,7 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 					calandarBegin.set(year, month, day, hour, minute,0);
 				}
 				return calandarBegin.getTimeInMillis();
-			}			
+			}
 		});
 	}
 	

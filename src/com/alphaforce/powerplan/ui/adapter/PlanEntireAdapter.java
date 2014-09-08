@@ -75,6 +75,8 @@ public class PlanEntireAdapter extends BaseAdapter{
 		
 		itemContent.setText(plan.getContent());
 		
+		notifyDataSetChanged();
+		
 		return convertView;
 	}
 	

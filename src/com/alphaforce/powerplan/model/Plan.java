@@ -1,8 +1,11 @@
 package com.alphaforce.powerplan.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Plan {
+public class Plan implements Serializable {
+	
+	private static final long serialVersionUID = 8019032322144924631L;
 	private long mId;
 	private String mName;
 	private String mContent;
@@ -82,6 +85,5 @@ public class Plan {
 		mStatus = status;
 	}
 	
-	
-	
+	}	
 }
