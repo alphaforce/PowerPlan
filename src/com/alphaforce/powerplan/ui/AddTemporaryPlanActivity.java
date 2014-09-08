@@ -103,8 +103,14 @@ public class AddTemporaryPlanActivity extends Activity implements OnTouchListene
 				PowerPlanDataSource planDataSource = 
 						PowerPlanDataSource.get(AddTemporaryPlanActivity.this);
 				planDataSource.insertPlan(planItem);
-				Intent in = new Intent("WindowBroadcastReveicer");
-				sendBroadcast(in);
+				
+				//send Broadcast
+				Intent intentBroad = new Intent("WindowBroadcastReveicer");
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("plan", planItem);
+				intentBroad.putExtras(bundle);
+				sendBroadcast(intentBroad);
+				
 				//jump to StartActivity
 				Intent intent = new Intent();
 				intent.setClass(AddTemporaryPlanActivity.this, StartActivity.class);

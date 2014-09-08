@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class PlanEntireAdapter extends BaseAdapter{
+public class PlanSimpleAdapter extends BaseAdapter{
 	
 	private List<Plan> mListPlan = new ArrayList<Plan>();
 	private Context mContext;
 	private LayoutInflater layoutInflater;
-	public PlanEntireAdapter(Context context,List<Plan> listPlan) {
+	public PlanSimpleAdapter(Context context,List<Plan> listPlan) {
 		this.mContext = context;
 		layoutInflater = LayoutInflater.from(context);
 		this.mListPlan = listPlan;
@@ -43,15 +43,12 @@ public class PlanEntireAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {		
 		
 		if(convertView == null){
-			convertView = layoutInflater.inflate(R.layout.plan_item_entirely, null);
+			convertView = layoutInflater.inflate(R.layout.plan_item_simple, null);
 		}
 		
-		TextView itemName = (TextView) convertView.findViewById(R.id.item_name);
-		TextView itemPlace = (TextView) convertView.findViewById(R.id.item_place);
-		TextView itemAuther = (TextView) convertView.findViewById(R.id.item_auther);
-		TextView itemBeing = (TextView) convertView.findViewById(R.id.item_begin_time);
-		TextView itemEnd = (TextView) convertView.findViewById(R.id.item_end_time);
-		TextView itemContent = (TextView) convertView.findViewById(R.id.item_content);
+		TextView itemBeing = (TextView) convertView.findViewById(R.id.simple_begin_time);
+		TextView itemEnd = (TextView) convertView.findViewById(R.id.simple_end_time);
+		TextView itemContent = (TextView) convertView.findViewById(R.id.simple_content);
 		
 		Calendar calendar = Calendar.getInstance();
 		Plan plan = new Plan();
@@ -60,11 +57,7 @@ public class PlanEntireAdapter extends BaseAdapter{
 		
 		planCursor.moveToPosition(position);
 		plan = planCursor.getPlan();
-		
-		itemName.setText(plan.getName());
-		itemPlace.setText(plan.getAddress());
-		itemAuther.setText(plan.getAuthor());
-				
+						
 		calendar.setTimeInMillis(plan.getStartTime());
 		String strBeing = CalendarLongToString(calendar);
 		itemBeing.setText(strBeing);

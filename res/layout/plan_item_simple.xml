@@ -15,7 +15,7 @@
         android:orientation="horizontal" 
         android:layout_marginTop="5dp">
        <TextView
-            android:id="@+id/begin_time_simple"
+            android:id="@+id/simple_begin_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_shape"
@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:textSize="20sp"/>
        <TextView
-            android:id="@+id/end_time_simple"
+            android:id="@+id/simple_end_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_shape"
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:textSize="20sp"/>
         <TextView
-            android:id="@+id/content_simple"
+            android:id="@+id/simple_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_shape"
