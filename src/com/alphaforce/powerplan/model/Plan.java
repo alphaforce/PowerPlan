@@ -83,7 +83,5 @@ public class Plan implements Serializable {
 	}
 	public void setStatus(List<Integer> status) {
 		mStatus = status;
-	}
-	
 	}	
 }

@@ -33,7 +33,7 @@ import android.widget.PopupWindow;
 import android.widget.SimpleAdapter;
 
 public class StartActivity extends Activity {
-	
+
 	private String[] planNames = {"计划1","计划2"};
 	private String[] planplaces = {"地点1","地点2"};
 	private String[] planModels = {"模式1","模式2"};

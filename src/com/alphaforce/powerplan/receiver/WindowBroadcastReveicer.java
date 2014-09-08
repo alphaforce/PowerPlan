@@ -9,7 +9,6 @@ public class WindowBroadcastReveicer extends BroadcastReceiver{
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Log.i("denghanmin", "WindowBroadcastReveicer");
 		context.startService(new Intent("WindowService"));
 	}
 
